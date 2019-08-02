@@ -1,6 +1,6 @@
 # Purpose
 
-Simple python script to run on an [Adafruit ItsyBitsy M4 Express featuring ATSAMD51](https://www.adafruit.com/product/3800) microcontroller to read an [Adafruit ADT7410 temperature sensor](https://www.adafruit.com/product/4089) over I2C and stream over serial to a Jupyter notebook. 
+Simple python script to run on an [Adafruit ItsyBitsy M4 Express featuring ATSAMD51](https://www.adafruit.com/product/3800) microcontroller with [CircuitPython](https://circuitpython.org) to read an [Adafruit ADT7410 temperature sensor](https://www.adafruit.com/product/4089) over I2C and stream over serial to a Jupyter notebook. 
 
 # Circuit
 

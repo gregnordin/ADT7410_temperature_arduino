@@ -10,6 +10,6 @@ Jupyter notebook with python code to read temperature data over serial, save to 
 
 # Temperature vs time
 
-Measurement in my office on July 30, 2019.
+Measurement in my office on July 30, 2019. Temperature resolution of ADT7410 is default 13 bits.
 
 ![](data_190730/office_temperature.png)

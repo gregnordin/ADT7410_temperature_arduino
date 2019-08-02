@@ -12,4 +12,4 @@ Jupyter notebook with python code to read temperature data over serial, save to 
 
 Measurement in my office on July 30, 2019.
 
-![](data_190730/190730_office_temperature.png)
+![](190730_office_temperature.png)

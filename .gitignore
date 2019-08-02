@@ -5,7 +5,6 @@ lastfailed
 ~$*.pptx
 .pytest_cache
 .coverage
-*.png
 *.stl
 *.zip
 env/

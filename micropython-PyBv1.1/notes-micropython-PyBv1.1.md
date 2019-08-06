@@ -83,6 +83,8 @@ Output:
 
 ## Figure out how to set temperature to high resolution (16 bit)
 
+See [I2C](http://docs.micropython.org/en/latest/library/machine.I2C.html) documentation and [adafruit_adt7410.py](https://github.com/adafruit/Adafruit_CircuitPython_ADT7410/blob/master/adafruit_adt7410.py). The latter shows how to use `struct.unpack()` to transform the 2 byte `bytes` object returned over I2C from the ADT7410 as the temperature to a `float` temperature in &deg;C according to pg. 12 of the spec sheet.
+
 `main.py`
 
     import pyb

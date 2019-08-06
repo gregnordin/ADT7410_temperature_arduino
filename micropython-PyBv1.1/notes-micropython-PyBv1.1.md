@@ -85,6 +85,8 @@ Output:
 
 See [I2C](http://docs.micropython.org/en/latest/library/machine.I2C.html) documentation and [adafruit_adt7410.py](https://github.com/adafruit/Adafruit_CircuitPython_ADT7410/blob/master/adafruit_adt7410.py). The latter shows how to use `struct.unpack()` to transform the 2 byte `bytes` object returned over I2C from the ADT7410 as the temperature to a `float` temperature in &deg;C according to pg. 12 of the spec sheet.
 
+Note that bitwise operators in python only operate on `int` objects. Therefore the `bytes` object returned from the config register needs converted to an `int` before being OR'd or AND'd, followed by conversion back to a bytes object so it can be written back to the config register. The former is done with `int.from_bytes()` and the latter with `<variable>.to_bytes()`. In each case the 2nd argument must be `'big'` to denote the endianness of the bytes object. In micropython I think this argument is ignored and the maching native bit order is used, but the argument has to be in the function call or an exception is thrown.
+
 `main.py`
 
     import pyb
@@ -175,3 +177,7 @@ Output
     MicroPython v1.11 on 2019-05-29; PYBv1.1 with STM32F405RG
     Type "help()" for more information.
     >>>
+
+## Future To-Do
+
+It would be straightforward to re-write [adafruit_adt7410.py](https://github.com/adafruit/Adafruit_CircuitPython_ADT7410/blob/master/adafruit_adt7410.py) to work with micropython.

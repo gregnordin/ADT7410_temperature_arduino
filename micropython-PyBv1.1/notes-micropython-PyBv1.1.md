@@ -142,9 +142,9 @@ Note that bitwise operators in python only operate on `int` objects. Therefore t
     
     set_low_resolution(0x48)
     
-    while count <=10:
+    while count <= max_count:
         elapsed = pyb.elapsed_millis(start)
-        if count == 5:
+        if count == int(max_count / 2):
             set_high_resolution(0x48)
         config_0 = i2c.readfrom_mem(0x48, 0x03, 1)
         # temp = i2c.readfrom_mem(0x48, 0x00, 2)

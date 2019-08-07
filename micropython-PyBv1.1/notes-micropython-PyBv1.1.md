@@ -284,3 +284,7 @@ Output
 
 PyBoard code: [Github - micropython_pyboard/150731_try_USB_VCP/pyboard_code.py](https://github.com/gregnordin/micropython_pyboard/blob/master/150731_try_USB_VCP/pyboard_code.py)  
 PC REPL test of PyBoard code: [Github - micropython_pyboard/150731_try_USB_VCP/instructions.txt](https://github.com/gregnordin/micropython_pyboard/blob/master/150731_try_USB_VCP/instructions.txt)  
+
+### Start to try it out
+
+See `190806_read_from_pyboard.ipynb`.

@@ -278,3 +278,9 @@ Output
     Type "help()" for more information.
     >>>
     
+## Look into how to read and send data with PC python program
+
+### Information & examples
+
+PyBoard code: [Github - micropython_pyboard/150731_try_USB_VCP/pyboard_code.py](https://github.com/gregnordin/micropython_pyboard/blob/master/150731_try_USB_VCP/pyboard_code.py)  
+PC REPL test of PyBoard code: [Github - micropython_pyboard/150731_try_USB_VCP/instructions.txt](https://github.com/gregnordin/micropython_pyboard/blob/master/150731_try_USB_VCP/instructions.txt)  

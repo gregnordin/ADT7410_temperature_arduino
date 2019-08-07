@@ -181,3 +181,100 @@ Output
 ## Future To-Do
 
 It would be straightforward to re-write [adafruit_adt7410.py](https://github.com/adafruit/Adafruit_CircuitPython_ADT7410/blob/master/adafruit_adt7410.py) to work with micropython.
+
+
+# Tue, 8/6/19
+
+## Get temperature from all connected ADT7410's
+
+`main.py`
+
+    import pyb
+    from machine import Pin, I2C
+    import struct
+    
+    #---------------------------------------------------------
+    # Function definitions
+    #
+    # In future could adapt CircuitPython class at 
+    # https://github.com/adafruit/Adafruit_CircuitPython_ADT7410/blob/master/adafruit_adt7410.py
+    #---------------------------------------------------------
+    
+    
+    def read_temperature_C(address):
+        temp = i2c.readfrom_mem(address, 0x00, 2)
+        return struct.unpack('>h', temp)[0] / 128
+    
+    def set_high_resolution(address):
+        register = 0x03
+        config = i2c.readfrom_mem(address, register, 1)
+        # bitwise operators can only operate on int types, not bytes types
+        config_int = int.from_bytes(config, 'big')
+        new_config = config_int | 0x80
+        new_config_bytes = new_config.to_bytes(1, 'big')
+        i2c.writeto_mem(address, register, new_config_bytes)
+    
+    def set_low_resolution(address):
+        register = 0x03
+        config = i2c.readfrom_mem(address, register, 1)
+        # bitwise operators can only operate on int types, not bytes types
+        config_int = int.from_bytes(config, 'big')
+        new_config = config_int & 0x7F
+        new_config_bytes = new_config.to_bytes(1, 'big')
+        i2c.writeto_mem(address, register, new_config_bytes)
+    
+    
+    #---------------------------------------------------------
+    # Main code
+    #---------------------------------------------------------
+    
+    blue = pyb.LED(4)          # LED object
+    
+    i2c = I2C('X', freq=100000)
+    
+    devices = i2c.scan()
+    for i, device in enumerate(devices):
+        set_high_resolution(device)
+        print("I2C device {} at address: {}".format(i, hex(device)))
+    
+    max_count = 10
+    count = 0
+    start = pyb.millis()
+    
+    while count <= max_count:
+        elapsed = pyb.elapsed_millis(start)
+        blue.toggle()
+        print(count, elapsed, sep=',', end=',')
+        for i, device in enumerate(devices):
+            if i == len(devices) - 1:
+                end = '\n'
+            else:
+                end = ','
+            print(read_temperature_C(device), end=end)
+        count += 1
+        pyb.delay(500)  # Delay for 500 ms
+    
+    blue.off()
+
+Output
+
+    >>> CNTL-D
+    MPY: sync filesystems
+    MPY: soft reboot
+    I2C device 0 at address: 0x48
+    I2C device 1 at address: 0x49
+    0,0,23.47656,23.40625
+    1,502,23.46875,23.39062
+    2,1003,23.46094,23.42969
+    3,1504,23.49219,23.41406
+    4,2005,23.46094,23.42969
+    5,2506,23.48438,23.42969
+    6,3007,23.48438,23.40625
+    7,3508,23.45313,23.39062
+    8,4009,23.44531,23.39844
+    9,4510,23.46094,23.39844
+    10,5011,23.46875,23.36719
+    MicroPython v1.11 on 2019-05-29; PYBv1.1 with STM32F405RG
+    Type "help()" for more information.
+    >>>
+    
